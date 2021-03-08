@@ -2,7 +2,6 @@ let express = require('express');
 let server = express();
 let handlebars = require("express-handlebars");
 let path = require('path');
-let bodyParser = require('body-parser');
 let fileUpload = require('express-fileupload');
 let morgan = require("morgan");
 
@@ -32,9 +31,6 @@ server.use(fileUpload({
 }));
 server.use(express.json());
 server.use(express.urlencoded({extended: true}));
-
-// server.use(bodyParser.json());
-// server.use(bodyParser.urlencoded({extended: true}));
 
 // allow files to be directly downloaded
 server.use(express.static('public'));
