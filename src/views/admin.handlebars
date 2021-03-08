@@ -1,0 +1,15 @@
+<h1><b>Admin</b>: List and upload reports.</h1>
+<hr />
+<p>Following ({{files.length}}) reports are available:</p>
+<ul>
+    {{#each files }}
+        <li>{{this}}</li>
+    {{/each}}
+</ul>
+
+<hr />
+<p>Select the file to upload</p>
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="report" multiple="false" required="true" />
+    <input type="submit" value="Upload" />
+</form>

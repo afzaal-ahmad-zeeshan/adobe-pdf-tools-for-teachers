@@ -1,0 +1,24 @@
+<h1><b>Customer</b>: List and download reports.</h1>
+<hr />
+<p>Following ({{files.length}}) reports are available, select to generate PDF:</p>
+<form method="POST">
+    <ul>
+        {{#each files }}
+            <li><input type="checkbox" name="report" value="{{this}}" id="file-{{@index}}" /> <label for="file-{{@index}}">{{this}}</label></li>
+        {{/each}}
+    </ul>
+    <input type="submit" value="Get report" />
+</form>
+<hr />
+{{#if reportGenerated}}
+    <div>
+        <h1>Download the report</h1>
+        <p>Report has been generated, <a href="/reports/download/{{filename}}">click here</a> to download the report.</p>
+    </div>
+{{/if}}
+
+<style>
+    ul li {
+        list-style: none;
+    }
+</style>

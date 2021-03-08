@@ -1,0 +1,5 @@
+/node_modules/
+/public/documents/processed/
+/public/documents/raw/
+/src/private.key
+/src/pdftools-api-credentials.json
