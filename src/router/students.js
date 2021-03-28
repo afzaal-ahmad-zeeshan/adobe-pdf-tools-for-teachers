@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         fs.readdirSync('./public/documents/raw').forEach(file => {
             files.push(file);
         });
-        res.status(200).render("reports", { page: 'reports', files: files });
+        res.status(200).render("students", { page: 'students', files: files });
     } catch (error) {
         res.status(500).render("crash", { error: error });
     }
@@ -18,20 +18,20 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        let reports = req.body.report;
-        if (!reports || reports.length === 0) {
+        let documents = req.body.document;
+        if (!documents || documents.length === 0) {
             res.status(400).render("crash", { error: "No report selected." });
             return;
         }
 
-        if(!Array.isArray(reports)) {
+        if(!Array.isArray(documents)) {
             // Create one report and send it back
             try {
                 console.log(`[INFO] generating the report...`);
-                await pdf.createPdf(`./public/documents/raw/${reports}`, `./public/documents/processed/output.pdf`);
+                await pdf.createPdf(`./public/documents/raw/${documents}`, `./public/documents/processed/output.pdf`);
 
                 console.log(`[INFO] sending the report...`);
-                res.status(200).render("download", { page: 'reports', filename: 'output.pdf' });
+                res.status(200).render("preview", { page: 'students', filename: 'output.pdf' });
             } catch(error) {
                 console.log(`[ERROR] ${JSON.stringify(error)}`);
                 res.status(500).render("crash", { error: error });
@@ -41,15 +41,15 @@ router.post('/', async (req, res) => {
                 console.log(`[INFO] creating a batch report...`);
                 // Create a batch report and send it back
                 let partials = [];
-                for (let index in reports) {
-                    const name = `partial-${index}-${reports[index]}`;
-                    await pdf.createPdf(`./public/documents/raw/${reports[index]}`, `./public/documents/processed/${name}`);
+                for (let index in documents) {
+                    const name = `partial-${index}-${documents[index]}`;
+                    await pdf.createPdf(`./public/documents/raw/${documents[index]}`, `./public/documents/processed/${name}`);
                     partials.push(`./public/documents/processed/${name.replace('docx', 'pdf').replace('xlsx', 'pdf')}`);
                 }
 
                 await pdf.combinePdf(partials, `./public/documents/processed/output.pdf`);
                 console.log(`[INFO] sending the combined report...`);
-                res.status(200).render("download", { page: 'reports', filename: 'output.pdf' });
+                res.status(200).render("preview", { page: 'students', filename: 'output.pdf' });
             } catch(error) {
                 console.log(`[ERROR] ${JSON.stringify(error)}`);
                 res.status(500).render("crash", { error: error });
@@ -59,6 +59,10 @@ router.post('/', async (req, res) => {
         console.log(`[ERROR] ${JSON.stringify(error)}`);
         res.status(500).render("crash", { error: error });
     }
+});
+
+router.get('/preview/:documentName', (req, res) => {
+    res.status(200).render("preview", { page: 'students', filename: 'output.pdf' });
 });
 
 router.get('/download/:documentName', (req, res) => {

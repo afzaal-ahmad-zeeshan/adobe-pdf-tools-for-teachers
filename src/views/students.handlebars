@@ -1,10 +1,10 @@
-<h1><b>Customer</b>: List and download reports.</h1>
+<h1><b>Student</b>: Download tasks.</h1>
 <hr />
-<p>Following ({{files.length}}) reports are available, select to generate PDF:</p>
+<p>Following ({{files.length}}) documents are available, select to generate PDF:</p>
 <form method="POST">
     <ul>
         {{#each files }}
-            <li><input type="checkbox" name="report" value="{{this}}" id="file-{{@index}}" /> <label for="file-{{@index}}">{{this}}</label></li>
+            <li><input type="checkbox" name="document" value="{{this}}" id="file-{{@index}}" /> <label for="file-{{@index}}">{{this}}</label></li>
         {{/each}}
     </ul>
     <input type="submit" value="Get report" />

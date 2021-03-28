@@ -12,10 +12,10 @@ server.engine('handlebars', handlebars({
             return value === 'home';
         },
         isReports: function (value) {
-            return value === 'reports';
+            return value === 'students';
         },
         isAdmin: function (value) {
-            return value === 'admin';
+            return value === 'teachers';
         },
     },
 }));
@@ -38,8 +38,8 @@ server.use(morgan('dev'));
 
 // Routes
 server.use('/', require('./router/home'));
-server.use('/reports', require('./router/reports'));
-server.use('/admin', require('./router/admin'));
+server.use('/students', require('./router/students'));
+server.use('/teachers', require('./router/teachers'));
 
 server.all('*', (req, res) => {
     res.status(404).render('lost');

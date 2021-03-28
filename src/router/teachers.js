@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
         fs.readdirSync('./public/documents/raw').forEach(file => {
             files.push(file);
         });
-        res.status(200).render("admin", { page: 'admin', files: files });
+        res.status(200).render("teachers", { page: 'teachers', files: files });
     } catch (error) {
         res.status(500).render("crash", { error: error });
     }
@@ -21,9 +21,9 @@ router.post('/', (req, res) => {
         if(!req.files) {
             res.status(400).render("crash", { error: "No files uploaded." });
         } else {
-            let file = req.files.report;
+            let file = req.files.document;
             file.mv('./public/documents/raw/' + file.name);
-            res.redirect("/admin");
+            res.redirect("/teachers");
         }
     } catch (error) {
         res.status(500).render("crash", { error: error });

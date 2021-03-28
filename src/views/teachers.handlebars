@@ -1,6 +1,6 @@
-<h1><b>Admin</b>: List and upload reports.</h1>
+<h1><b>Teacher</b>: Upload content.</h1>
 <hr />
-<p>Following ({{files.length}}) reports are available:</p>
+<p>Following ({{files.length}}) documents are available:</p>
 <ul>
     {{#each files }}
         <li>{{this}}</li>
@@ -10,6 +10,6 @@
 <hr />
 <p>Select the file to upload</p>
 <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="report" multiple="false" required="true" />
+    <input type="file" name="document" multiple="false" required="true" />
     <input type="submit" value="Upload" />
 </form>
